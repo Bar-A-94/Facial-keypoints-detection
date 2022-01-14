@@ -24,14 +24,13 @@ def RMSELoss_custom(pred, y):
 
 
 epochs = 150
-model = models.inception_v3
+model = models.efficientb3
 model_name = model.__name__
 logger = set_logger("./log/" + model_name + "_training.log")
 model_dir = Path("./pt/" + model_name + "_model.pt")
 learning_rate = 0.01
 criterion = RMSELoss_custom
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
-# optimizer = torch.optim.RMSprop(model.parameters(), weight_decay=0.9, eps=1)
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', verbose=True, patience=5)
 gpu = torch.cuda.is_available()
 if gpu:
@@ -40,7 +39,7 @@ if gpu:
 train_losses, val_losses = [], []
 val_loss_min = torch.inf
 logger.debug(f"-------------------------Train-------------------------")
-print("Started training")
+print("Started training " + model.__name__)
 for e in range(1, epochs + 1):
     start = time.perf_counter()
     model.train()

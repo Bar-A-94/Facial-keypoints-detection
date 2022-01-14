@@ -66,5 +66,6 @@ if torch.cuda.is_available():
     batch_size = 128
 else:
     batch_size = 32
-train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, sampler=train_sampler)
+train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=32, sampler=train_sampler)
 val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=batch_size, sampler=val_sampler)
+

@@ -11,6 +11,7 @@ class FaceKeypointDataSet(torch.utils.data.Dataset):
         self.transformer_factor = transformer_factor
         self.is_test_set = is_test_set
         self.transform = transforms.Compose([transforms.ToPILImage(),
+                                             transforms.Resize(224),
                                              transforms.Lambda(lambda x: np.stack((x,) * 3, axis=-1)),
                                              transforms.ToTensor(),
                                              transforms.Normalize(mean=(0.5,), std=(0.5,))])
@@ -28,4 +29,5 @@ class FaceKeypointDataSet(torch.utils.data.Dataset):
         img = self.transform(img)
         if self.is_test_set:
             return img
+        feature = feature * 224 / 96
         return img, feature

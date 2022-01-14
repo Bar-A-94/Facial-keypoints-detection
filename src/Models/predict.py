@@ -12,7 +12,7 @@ main_directory = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath
 data_directory = os.path.join(main_directory, 'data')
 
 extract_file_from_raw()
-model = models.resnet50
+model = models.inception_v3
 model_name = model.__name__
 model_dir = os.path.join(main_directory, 'Models', model_name, model_name + "_model.pt")
 logger = set_logger(os.path.join(main_directory, 'src', 'Models', 'log', model_name + "_predict.log"))
@@ -29,7 +29,7 @@ test_loader = torch.utils.data.DataLoader(test_data, batch_size=len(test_data), 
 images = next(iter(test_loader))
 with torch.no_grad():
     model.eval()
-    predicted_labels = model(images)
+    predicted_labels = model(images) * 96 / 224
 
 keypts_labels = ['left_eye_center_x', 'left_eye_center_y', 'right_eye_center_x', 'right_eye_center_y',
                  'left_eye_inner_corner_x', 'left_eye_inner_corner_y', 'left_eye_outer_corner_x',

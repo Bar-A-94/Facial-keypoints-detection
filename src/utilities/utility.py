@@ -14,8 +14,8 @@ def visualize_examples(headline, images, features, pred_labels=None):
     fig = plt.figure(figsize=(20, 10))
     for i in range(16):
         fig.add_subplot(4, 4, i + 1)
-        img = images[i].reshape(3, 96, 96)[0]
-        plt.imshow(img.reshape(96, 96), cmap='gray')
+        img = images[i].reshape(3, 224, 224)[0]
+        plt.imshow(img.reshape(224, 224), cmap='gray')
         plt.axis('off')
         plt.tight_layout()
         plt.scatter(features[i][::2], features[i][1::2], marker='o', s=50)
